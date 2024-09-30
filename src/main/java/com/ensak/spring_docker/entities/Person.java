@@ -1,15 +1,16 @@
 package com.ensak.spring_docker.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import lombok.*;
 
 @Entity
+@Table(name = "persons")
+@Getter @Setter @AllArgsConstructor @NoArgsConstructor
+@Builder @ToString
 public class Person {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int id;
-    String name;
-    String address;
-    long tel;
+    private long id;
+    private String name;
+    private String city;
+    private String phoneNumber;
 }

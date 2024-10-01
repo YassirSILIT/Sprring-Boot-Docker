@@ -17,24 +17,24 @@ public class PersonController {
     }
 
     @PostMapping("/addPerson")
-    Person addPerson(Person person){
+    public Person addPerson(@RequestBody Person person){
         return personService.addPerson(person);
     }
     @GetMapping("/allPersons")
-    List<Person> listOfPersons(){
+    public List<Person> listOfPersons(){
         return personService.getAllPerson();
     }
     @GetMapping("/getPerson/{id}")
-    Person getPerson(@PathVariable long id){
+    public Person getPerson(@PathVariable long id){
         return personService.getPersonById(id);
     }
     @DeleteMapping("/deletePerson/{id}")
-    void deletePersonById(@PathVariable long id){
+    public void deletePersonById(@PathVariable long id){
         personService.deletePerson(id);
     }
-    @PostMapping("/updatePerson/{id}")
-    Person updatePerson(@PathVariable long id){
-        return personService.updatePerson(id);
+    @PutMapping("/updatePerson/{id}")
+    public Person updatePerson(@PathVariable long id,@RequestBody Person personDetails){
+        return personService.updatePerson(id,personDetails);
     }
 
 

@@ -1,6 +1,7 @@
 package com.ensak.spring_docker.services;
 
 import com.ensak.spring_docker.entities.Person;
+import com.ensak.spring_docker.exceptions.PersonNotFound;
 import com.ensak.spring_docker.repositories.PersonRepository;
 import org.springframework.stereotype.Service;
 
@@ -23,13 +24,24 @@ public class PersonServiceImpl implements PersonService{
     }
 
     @Override
-    public Person updatePerson(long id) {
-        Person person = personRepository.findById(id).get();
-        person.setName(person.getName());
-        person.setCity(person.getCity());
-        person.setPhoneNumber(person.getPhoneNumber());
-        Person updatePerson = personRepository.save(person);
-        return updatePerson;
+    public Person updatePerson(long id, Person personDetails) {
+
+        Optional<Person> person = personRepository.findById(id);
+        if (person.isPresent()){
+            Person existingPerson = person.get();
+
+            existingPerson.setName(personDetails.getName());
+            existingPerson.setCity(personDetails.getCity());
+            existingPerson.setPhoneNumber(personDetails.getPhoneNumber());
+            Person updatedPerson = personRepository.save(existingPerson);
+            return updatedPerson;
+        }
+        else {
+             throw new PersonNotFound("Person Not Found");
+        }
+
+        //return person.orElse(throw new PersonNotFound("Person Not Found"));
+
     }
 
     @Override

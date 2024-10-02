@@ -29,7 +29,6 @@ public class PersonServiceImpl implements PersonService{
         Optional<Person> person = personRepository.findById(id);
         if (person.isPresent()){
             Person existingPerson = person.get();
-
             existingPerson.setName(personDetails.getName());
             existingPerson.setCity(personDetails.getCity());
             existingPerson.setPhoneNumber(personDetails.getPhoneNumber());
@@ -39,9 +38,6 @@ public class PersonServiceImpl implements PersonService{
         else {
              throw new PersonNotFound("Person Not Found");
         }
-
-        //return person.orElse(throw new PersonNotFound("Person Not Found"));
-
     }
 
     @Override
